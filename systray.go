@@ -11,8 +11,6 @@ import (
 	"runtime"
 	"sync"
 	"sync/atomic"
-
-	"github.com/getlantern/golog"
 )
 
 var (
@@ -39,8 +37,6 @@ type MenuItem struct {
 }
 
 var (
-	log = golog.LoggerFor("systray")
-
 	systrayReady  func()
 	systrayExit   func()
 	menuItems     = make(map[int32]*MenuItem)
@@ -142,6 +138,10 @@ func (item *MenuItem) Hide() {
 // Show shows a previously hidden menu item
 func (item *MenuItem) Show() {
 	showMenuItem(item)
+}
+
+func (item *MenuItem) Delete() {
+	deleteMenuItem(item)
 }
 
 // Checked returns if the menu item has a check mark

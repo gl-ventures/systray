@@ -147,6 +147,16 @@
   [menuItem setHidden:TRUE];
 }
 
+- (void) delete_menu_item:(NSNumber*) menuId
+{
+  NSMenuItem* menuItem;
+  int existedMenuIndex = [menu indexOfItemWithRepresentedObject: menuId];
+  if (existedMenuIndex == -1) {
+    return;
+  }
+  [menu removeItemAtIndex: existedMenuIndex];
+}
+
 - (void)setMenuItemIcon:(NSArray*)imageAndMenuId {
   NSImage* image = [imageAndMenuId objectAtIndex:0];
   NSNumber* menuId = [imageAndMenuId objectAtIndex:1];
@@ -237,6 +247,11 @@ void add_separator(int menuId) {
 void hide_menu_item(int menuId) {
   NSNumber *mId = [NSNumber numberWithInt:menuId];
   runInMainThread(@selector(hide_menu_item:), (id)mId);
+}
+
+void delete_menu_item(int menuId) {
+  NSNumber *mId = [NSNumber numberWithInt:menuId];
+  runInMainThread(@selector(delete_menu_item:), (id)mId);
 }
 
 void show_menu_item(int menuId) {

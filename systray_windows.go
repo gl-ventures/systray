@@ -542,6 +542,24 @@ func (t *winTray) hideMenuItem(menuId int32) error {
 	return nil
 }
 
+func (t *winTray) deleteMenuItem(menuId int32) error {
+	// https://msdn.microsoft.com/en-us/library/windows/desktop/ms647629(v=vs.85).aspx
+	const MF_BYCOMMAND = 0x00000000
+	const ERROR_SUCCESS syscall.Errno = 0
+
+	res, _, err := pDeleteMenu.Call(
+		uintptr(t.menu),
+		uintptr(uint32(menuId)),
+		MF_BYCOMMAND,
+	)
+	if res == 0 && err.(syscall.Errno) != ERROR_SUCCESS {
+		return err
+	}
+	t.delFromVisibleItems(menuId)
+
+	return nil
+}
+
 func (t *winTray) showMenu() error {
 	const (
 		TPM_BOTTOMALIGN = 0x0020
