@@ -734,6 +734,14 @@ func hideMenuItem(item *MenuItem) {
 	}
 }
 
+func deleteMenuItem(item *MenuItem) {
+	err := wt.deleteMenuItem(item.id)
+	if err != nil {
+		log.Errorf("Unable to deleteMenuItem: %v", err)
+		return
+	}
+}
+
 func showMenuItem(item *MenuItem) {
 	addOrUpdateMenuItem(item)
 }
