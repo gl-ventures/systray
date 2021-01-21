@@ -1,6 +1,6 @@
-module gitlab.com/sec-squad/systray
+module github.com/gl-ventures/systray
 
-go 1.12
+go 1.15
 
 require (
 	github.com/getlantern/context v0.0.0-20190109183933-c447772a6520 // indirect
